@@ -10,8 +10,7 @@ export default class NewGrade extends Component {
     this.state = {
       name: '',
       total: 0,
-      score: 0,
-      grade: ''
+      score: 0
     }
 
     this._onSubmit = this._onSubmit.bind(this);
@@ -29,6 +28,11 @@ export default class NewGrade extends Component {
 
     GradeActions.createNewGrade(newGrade);
 
+    this.setState({
+        name: '',
+        total: 0,
+        score: 0
+    })
   }
 
   render() {
