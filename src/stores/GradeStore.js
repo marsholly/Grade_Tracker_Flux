@@ -24,7 +24,13 @@ class GradeStore extends EventEmitter {
           this.emit('CHANGE');
           break;
         case 'UPDATE_STUDENT_GRADE':
-
+          let { updateStudentGrade } = action.payload;
+          let index = _studentGrade.findIndex(student => {
+            return student.id === updateStudentGrade.id;
+          })
+          _studentGrade[index] = updateStudentGrade;
+          this.emit('CHANGE');
+          break;
       }
     });
 
