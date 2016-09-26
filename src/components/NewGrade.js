@@ -44,7 +44,8 @@ export default class NewGrade extends Component {
               <label>Score: </label>
               <input type="number" className="form-control" placeholder="score" value={this.state.score} onChange={e => { this.setState({score: e.target.value}) }}/>
             </div>
-            <button className="btn btn-success btn-md" type='submit'><i className='glyphicon glyphicon-plus'></i>Add</button> </form>
+            <button className="btn btn-success btn-md" type='submit'><i className='glyphicon glyphicon-plus'></i>Add</button>
+          </form>
         </div>
     )
   }

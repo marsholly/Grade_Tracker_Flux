@@ -9,14 +9,17 @@ export default class StudentGradeTable extends Component {
       showModal: false,
       editName:'',
       editTotal: 0,
-      editScore: 0
+      editScore: 0,
+      editId: null
     }
 
     this.gradeScore = this.gradeScore.bind(this);
     this.deleteGrade = this.deleteGrade.bind(this);
     this.editGrade = this.editGrade.bind(this);
+    this.saveEdit = this.saveEdit.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
+    this.cancelEdit = this.cancelEdit.bind(this);
   }
 
   closeModal() {
@@ -25,6 +28,11 @@ export default class StudentGradeTable extends Component {
 
   openModal() {
     this.setState({ showModal: true });
+  }
+
+  cancelEdit() {
+    this.setState({editId: null});
+    this.closeModal();
   }
 
   gradeScore(student){
@@ -49,8 +57,26 @@ export default class StudentGradeTable extends Component {
   }
 
   editGrade(student) {
+    this.openModal();
+    this.setState({
+      editName: student.name,
+      editTotal: student.total,
+      editScore: student.score,
+      editId: student.id
+    })
+  }
 
-    // GradeActions.updateStudentGrade(student);
+  saveEdit(id) {
+    let { editName, editTotal, editScore } = this.state;
+    let updateGrade = {
+      name: editName,
+      total: editTotal,
+      score: editScore,
+      id
+    }
+    GradeActions.updateStudentGrade(updateGrade);
+    this.closeModal();
+    this.setState({ editId: null });
   }
 
   render() {
@@ -92,6 +118,26 @@ export default class StudentGradeTable extends Component {
         <tbody>
           {rows}
         </tbody>
+        <Modal show={this.state.showModal} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <input type="test" className="form-control" placeholder="Name" value={this.state.editName} onChange={e => { this.setState({editName: e.target.value}) }}/>
+            <div className="form-group">
+              <label>Total: </label>
+              <input type="number" className="form-control" placeholder="Total" value={this.state.editTotal} onChange={e => { this.setState({editTotal: e.target.value}) }}/>
+            </div>
+            <div className="form-group">
+              <label>Score: </label>
+              <input type="number" className="form-control" placeholder="score" value={this.state.editScore} onChange={e => { this.setState({editScore: e.target.value}) }}/>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button className="btn btn-primary" onClick={() => this.saveEdit(this.state.editId)}>Save</Button>
+            <Button onClick={this.cancelEdit}>Close</Button>
+          </Modal.Footer>
+        </Modal>
       </table>
     )
   }

@@ -23,7 +23,7 @@ class GradeStore extends EventEmitter {
           _studentGrade = newStudentGrade;
           this.emit('CHANGE');
           break;
-
+        case 'UPDATE_STUDENT_GRADE':
 
       }
     });

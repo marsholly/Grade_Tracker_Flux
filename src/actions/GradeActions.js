@@ -13,9 +13,9 @@ const GradeActions = {
       payload: { _id }
     })
   },
-  updateGrade(updateStudentGrade) {
+  updateStudentGrade(updateStudentGrade) {
     AppDispatcher.dispatch({
-      type: 'UPDATE_GRADE',
+      type: 'UPDATE_STUDENT_GRADE',
       payload: { updateStudentGrade }
     })
   }
